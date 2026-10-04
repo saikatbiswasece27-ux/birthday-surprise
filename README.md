@@ -1,1 +1,434 @@
-# birthday-surprise
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Happy Birthday Shonaaa! ❤️</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ffe6ea, #fdfbfb, #f3e6e8, #eaddff);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            overflow-x: hidden;
+            touch-action: manipulation;
+            color: #4a4a4a;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 24px;
+            box-shadow: 0 8px 32px rgba(255, 182, 193, 0.2);
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #ff758c, #ff7eb3);
+            color: white;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(255, 117, 140, 0.4);
+        }
+        
+        .btn-primary:active {
+            transform: scale(0.95);
+        }
+
+        .section-container {
+            display: none;
+            min-height: 100vh;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            text-align: center;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .active-section {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0); }
+            80% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .photo-frame {
+            border: 8px solid white;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transform: rotate(-3deg);
+            transition: transform 0.3s;
+            max-width: 250px;
+            margin: 20px auto;
+        }
+        
+        .photo-frame:nth-child(even) {
+            transform: rotate(3deg);
+        }
+
+        /* Dodging button class */
+        .dodge-btn {
+            position: absolute;
+            transition: all 0.2s ease-out;
+            z-index: 50;
+        }
+
+        /* Catch Hearts Game */
+        #heart-container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            border: 2px dashed #ffb6c1;
+            border-radius: 20px;
+            overflow: hidden;
+            background: rgba(255,255,255,0.3);
+            margin-bottom: 20px;
+        }
+
+        .floating-heart {
+            position: absolute;
+            font-size: 30px;
+            cursor: pointer;
+            user-select: none;
+            animation: floatUp 3s linear forwards;
+            transition: transform 0.1s;
+        }
+
+        .floating-heart:active {
+            transform: scale(1.5);
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(300px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-50px) rotate(360deg); opacity: 0; }
+        }
+
+        /* Gift Boxes */
+        .gift-box {
+            font-size: 60px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-20px);}
+            60% {transform: translateY(-10px);}
+        }
+
+        /* Confetti */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            animation: confetti-fall 3s linear forwards;
+        }
+
+        @keyframes confetti-fall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+        
+        .achievement {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.5s;
+        }
+        .achievement.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body class="relative max-w-md mx-auto h-screen w-full">
+
+    <!-- SECTION 1: IMPORTANT NOTICE -->
+    <div id="sec-1" class="section-container active-section">
+        <h1 class="text-3xl font-bold text-red-500 mb-4 animate-pulse">🚨 IMPORTANT NOTICE 🚨</h1>
+        <p class="text-lg font-semibold mb-8 text-gray-700">Someone very special has a birthday today...</p>
+        <button onclick="nextSection(2)" class="btn-primary px-8 py-4 rounded-full text-xl font-bold w-full max-w-[250px]">
+            Okay, show me 👀
+        </button>
+    </div>
+
+    <!-- SECTION 2: REVEAL -->
+    <div id="sec-2" class="section-container">
+        <h2 class="text-2xl font-extrabold text-pink-600 mb-4">WAIT... IT'S YOUR BIRTHDAY?! 😭🎂</h2>
+        <img src="IMG-20251004-WA0196.jpg" alt="Cute smile" class="photo-frame mb-6" onerror="this.src='https://via.placeholder.com/250x350?text=Photo+Here'">
+        <p class="mb-6 font-medium text-gray-600">I almost forgot! (Just kidding, I could never) ❤️</p>
+        <button onclick="nextSection(3)" class="btn-primary px-8 py-3 rounded-full font-bold">
+            Next ➡️
+        </button>
+    </div>
+
+    <!-- SECTION 3: Q&A -->
+    <div id="sec-3" class="section-container w-full">
+        <div class="glass-card p-6 w-full">
+            <h2 class="text-xl font-bold text-purple-600 mb-6">Are you really the birthday girl? Let's check. 🕵️‍♂️</h2>
+            
+            <div id="q1">
+                <p class="font-semibold mb-4 text-lg">Question 1: Who is the cutest? 😌</p>
+                <div class="flex flex-col gap-3">
+                    <button onclick="answerQ1('me')" class="bg-gray-200 py-3 rounded-xl font-bold text-gray-700">Me (The Boyfriend)</button>
+                    <button onclick="answerQ1('shona')" class="btn-primary py-3 rounded-xl font-bold">Shonaaa ❤️</button>
+                </div>
+            </div>
+
+            <div id="q1-result" class="hidden mt-4 flex flex-col items-center">
+                <p class="text-pink-600 font-bold text-lg mb-2">Correct. Obviously. 🙄❤️</p>
+                <img src="20260722_171153.jpg" class="w-40 rounded-xl border-4 border-pink-300 mb-4 shadow-md">
+                <button onclick="document.getElementById('q1').classList.add('hidden'); document.getElementById('q1-result').classList.add('hidden'); document.getElementById('q2').classList.remove('hidden');" class="bg-purple-500 text-white px-6 py-2 rounded-full font-bold">Next Question</button>
+            </div>
+
+            <div id="q2" class="hidden relative h-64 w-full">
+                <p class="font-semibold mb-4 text-lg">Question 2: Who gets angry faster? 😂</p>
+                <button id="angry-me" class="dodge-btn bg-gray-300 text-gray-700 py-3 px-6 rounded-xl font-bold left-4 top-16">Him 😇</button>
+                <button onclick="answerQ2()" class="absolute right-4 top-16 btn-primary py-3 px-6 rounded-xl font-bold">Me 😈</button>
+            </div>
+
+            <div id="q2-result" class="hidden mt-4 flex flex-col items-center">
+                <p class="text-pink-600 font-bold text-lg mb-2">I mean... facts are facts. 😂❤️</p>
+                <img src="20260909_125649.jpg" class="w-40 rounded-xl border-4 border-pink-300 mb-4 shadow-md">
+                <button onclick="nextSection(4)" class="bg-purple-500 text-white px-6 py-2 rounded-full font-bold">Proceed to Mini-Game</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 4: HEART CATCHER -->
+    <div id="sec-4" class="section-container w-full">
+        <h2 class="text-2xl font-bold text-red-500 mb-2">Catch the Hearts! ❤️</h2>
+        <p class="mb-4 text-sm font-medium">Catch 10 hearts before time runs out!</p>
+        <div class="font-bold text-xl mb-2 text-pink-600">Score: <span id="score">0</span>/10</div>
+        
+        <div id="heart-container" onclick="catchMiss()"></div>
+        
+        <button id="start-game-btn" onclick="startHeartGame()" class="btn-primary px-8 py-3 rounded-full font-bold">Start Game!</button>
+        
+        <div id="game-win" class="hidden flex-col items-center mt-4">
+            <p class="font-bold text-lg text-pink-600 mb-3 text-center">Okay okay, you win. You already stole my heart anyway. 😭❤️</p>
+            <img src="20260101_170957.jpg" class="w-48 rounded-xl shadow-lg border-4 border-white mb-4">
+            <button onclick="nextSection(5)" class="btn-primary px-8 py-3 rounded-full font-bold">Next ➡️</button>
+        </div>
+    </div>
+
+    <!-- SECTION 5: IMPOSSIBLE QUESTION -->
+    <div id="sec-5" class="section-container w-full relative">
+        <div class="glass-card p-8 w-full text-center h-80 flex flex-col items-center justify-center">
+            <h2 class="text-xl font-bold text-purple-600 mb-8">The Impossible Question...</h2>
+            <p class="font-semibold text-lg mb-10">Will you always stay with this annoying person? 🥺</p>
+            
+            <div class="flex justify-center gap-8 w-full relative h-20">
+                <button onclick="nextSection(6)" class="btn-primary px-8 py-3 rounded-full font-bold text-lg z-10">YES ❤️</button>
+                <button id="dodge-no" class="absolute bg-gray-800 text-white px-8 py-3 rounded-full font-bold text-lg right-10">NO 😈</button>
+            </div>
+            
+            <p id="yes-text" class="hidden text-pink-600 font-bold mt-8">Good choice. There was no other option anyway. 😂❤️</p>
+        </div>
+    </div>
+
+    <!-- SECTION 6: GIFT BOXES -->
+    <div id="sec-6" class="section-container w-full">
+        <h2 class="text-2xl font-bold text-pink-600 mb-6">Choose Your Surprise 🎁</h2>
+        <p class="mb-8 font-medium">Tap a box to see what you won!</p>
+        
+        <div class="flex justify-center gap-4 mb-8">
+            <div class="gift-box" onclick="openGift(1, this, 'Unlimited hugs 🫂', '20251030_133745.jpg')">🎁</div>
+            <div class="gift-box" style="animation-delay: 0.2s" onclick="openGift(2, this, 'One lifetime supply of annoying texts 😂', '20251226_185028.jpg')">🎁</div>
+            <div class="gift-box" style="animation-delay: 0.4s" onclick="openGift(3, this, 'Unlimited love ❤️', '20260722_171411_2.jpg')">🎁</div>
+        </div>
+
+        <div id="gift-result" class="hidden flex-col items-center glass-card p-6 w-full">
+            <h3 id="gift-text" class="text-xl font-bold text-purple-600 mb-4 text-center"></h3>
+            <img id="gift-img" src="" class="w-48 rounded-xl shadow-lg border-4 border-white mb-6">
+            <button onclick="nextSection(7)" id="gift-next-btn" class="hidden btn-primary px-8 py-3 rounded-full font-bold">Continue ➡️</button>
+        </div>
+    </div>
+
+    <!-- SECTION 7: ACHIEVEMENTS -->
+    <div id="sec-7" class="section-container w-full">
+        <h2 class="text-2xl font-bold text-red-500 mb-6">Relationship Achievements 🏆</h2>
+        <div class="glass-card p-6 w-full text-left mb-6 flex flex-col gap-4">
+            <div class="achievement bg-white/50 p-3 rounded-lg font-bold flex items-center gap-3"><span class="text-2xl">❤️</span> Survived my nonsense</div>
+            <div class="achievement bg-white/50 p-3 rounded-lg font-bold flex items-center gap-3"><span class="text-2xl">😂</span> Survived our stupid arguments</div>
+            <div class="achievement bg-white/50 p-3 rounded-lg font-bold flex items-center gap-3"><span class="text-2xl">🫂</span> Professional hug receiver</div>
+            <div class="achievement bg-white/50 p-3 rounded-lg font-bold flex items-center gap-3"><span class="text-2xl">🥹</span> Made me way too attached</div>
+            <div class="achievement bg-pink-100 p-3 rounded-lg font-extrabold text-pink-600 flex items-center gap-3 shadow-md"><span class="text-2xl">🏆</span> Officially my favourite human</div>
+        </div>
+        <img src="IMG-20251003-WA0023.jpg" class="w-40 rounded-xl mb-6 shadow-lg border-2 border-white rotate-3">
+        <button onclick="nextSection(8)" class="btn-primary px-8 py-3 rounded-full font-bold">One last thing... 👀</button>
+    </div>
+
+    <!-- SECTION 8: FINAL -->
+    <div id="sec-8" class="section-container w-full">
+        <h2 class="text-xl font-bold text-gray-700 mb-2">Okay... enough nonsense 😂❤️</h2>
+        <h1 class="text-4xl font-extrabold text-pink-600 mb-6 drop-shadow-md">Happy Birthday,<br>Shonaaa 🎂🌹</h1>
+        
+        <img src="20251028_191003.jpg" class="photo-frame w-64 mb-6 shadow-2xl" style="transform: rotate(0deg);">
+        
+        <div class="glass-card p-5 mb-8 w-full text-center">
+            <p class="font-semibold text-gray-800 text-sm leading-relaxed">
+                You already know how much you mean to me.<br>
+                I just wanted to make you smile today. ❤️<br><br>
+                Now go enjoy your birthday, birthday girl. 😌🎂
+            </p>
+        </div>
+        
+        <button onclick="location.reload()" class="bg-gray-800 text-white px-8 py-3 rounded-full font-bold shadow-lg">
+            Replay the madness 😂
+        </button>
+    </div>
+
+    <script>
+        // Section Navigation
+        function nextSection(num) {
+            document.querySelectorAll('.section-container').forEach(el => el.classList.remove('active-section'));
+            document.getElementById('sec-' + num).classList.add('active-section');
+            
+            if(num === 7) {
+                // Trigger achievement animations
+                setTimeout(() => {
+                    const achievements = document.querySelectorAll('.achievement');
+                    achievements.forEach((ach, index) => {
+                        setTimeout(() => {
+                            ach.classList.add('show');
+                        }, index * 400);
+                    });
+                }, 300);
+            }
+            if(num === 8) {
+                fireConfetti();
+            }
+        }
+
+        // Q&A Logic
+        function answerQ1(ans) {
+            if(ans === 'me') {
+                alert("Nice try, but you know that's a lie. 😂 Try again.");
+            } else {
+                document.getElementById('q1-result').classList.remove('hidden');
+                document.getElementById('q1').classList.add('hidden');
+            }
+        }
+
+        function answerQ2() {
+            document.getElementById('q2-result').classList.remove('hidden');
+            document.getElementById('q2').classList.add('hidden');
+        }
+
+        // Dodging buttons logic (works for touch and mouse)
+        const setupDodgeBtn = (btnId) => {
+            const btn = document.getElementById(btnId);
+            const moveBtn = () => {
+                const maxX = window.innerWidth - btn.clientWidth - 40;
+                const maxY = window.innerHeight - btn.clientHeight - 40;
+                const randomX = Math.floor(Math.random() * maxX) + 20;
+                const randomY = Math.floor(Math.random() * maxY) + 20;
+                
+                btn.style.position = 'fixed';
+                btn.style.left = randomX + 'px';
+                btn.style.top = randomY + 'px';
+            };
+            btn.addEventListener('mouseover', moveBtn);
+            btn.addEventListener('touchstart', (e) => { e.preventDefault(); moveBtn(); });
+        };
+        
+        setupDodgeBtn('angry-me');
+        setupDodgeBtn('dodge-no');
+
+        // Heart Game Logic
+        let score = 0;
+        let gameInterval;
+        
+        function startHeartGame() {
+            document.getElementById('start-game-btn').classList.add('hidden');
+            score = 0;
+            document.getElementById('score').innerText = score;
+            
+            gameInterval = setInterval(() => {
+                if(score >= 10) {
+                    clearInterval(gameInterval);
+                    document.getElementById('heart-container').classList.add('hidden');
+                    document.getElementById('game-win').classList.remove('hidden');
+                    return;
+                }
+                
+                const heart = document.createElement('div');
+                heart.innerHTML = ['❤️','💖','💕','🥰'][Math.floor(Math.random()*4)];
+                heart.className = 'floating-heart';
+                heart.style.left = Math.random() * 80 + '%';
+                
+                heart.onclick = function() {
+                    score++;
+                    document.getElementById('score').innerText = score;
+                    this.remove();
+                };
+                
+                // For touch devices
+                heart.ontouchstart = function(e) {
+                    e.preventDefault();
+                    score++;
+                    document.getElementById('score').innerText = score;
+                    this.remove();
+                };
+                
+                document.getElementById('heart-container').appendChild(heart);
+                
+                setTimeout(() => { if(heart.parentElement) heart.remove(); }, 3000);
+            }, 600);
+        }
+
+        // Gift Logic
+        let giftsOpened = 0;
+        function openGift(num, el, text, img) {
+            el.innerHTML = "✨";
+            el.style.animation = "none";
+            el.style.transform = "scale(0)";
+            
+            setTimeout(() => {
+                document.getElementById('gift-result').classList.remove('hidden');
+                document.getElementById('gift-text').innerText = text;
+                document.getElementById('gift-img').src = img;
+                
+                giftsOpened++;
+                if(giftsOpened >= 3) {
+                    document.getElementById('gift-next-btn').classList.remove('hidden');
+                }
+            }, 300);
+        }
+
+        // Confetti Logic
+        function fireConfetti() {
+            const colors = ['#ff758c', '#ff7eb3', '#ffffff', '#ffd700'];
+            for(let i=0; i<100; i++) {
+                const conf = document.createElement('div');
+                conf.className = 'confetti';
+                conf.style.left = Math.random() * 100 + 'vw';
+                conf.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                conf.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                conf.style.animationDelay = (Math.random() * 2) + 's';
+                document.body.appendChild(conf);
+            }
+        }
+    </script>
+</body>
+</html>
